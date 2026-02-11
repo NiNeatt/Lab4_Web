@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Caesar Cipher Tool</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="p-10 bg-gray-100">
+
+    <div class="tabs">
+        <a class="tab tab-lifted tab-active" onclick="showEncrypt()">Encrypt</a>
+        <a class="tab tab-lifted" onclick="showDecrypt()">Decrypt</a>
+    </div>
+
+    <div id="encryptSection" class="mt-5">
+        <label class="block mb-2">Plain Text:</label>
+        <input id="plainText" type="text" class="input input-bordered w-full mb-3">
+
+        <label class="block mb-2">Shift:</label>
+        <input id="shiftEncrypt" type="number" class="input input-bordered w-full mb-3">
+
+        <label class="block mb-2">Cipher Text:</label>
+        <p id="cipherText" class="p-3 bg-red-200 rounded">...</p>
+
+        <button onclick="encrypt()" class="btn btn-error mt-3">Encrypt</button>
+    </div>
+
+    <div id="decryptSection" class="mt-5 hidden">
+        <label class="block mb-2">Cipher Text:</label>
+        <input id="cipherInput" type="text" class="input input-bordered w-full mb-3">
+
+        <label class="block mb-2">Shift:</label>
+        <input id="shiftDecrypt" type="number" class="input input-bordered w-full mb-3">
+
+        <label class="block mb-2">Plain Text:</label>
+        <p id="plainOutput" class="p-3 bg-blue-200 rounded">...</p>
+
+        <button onclick="decrypt()" class="btn btn-info mt-3">Decrypt</button>
+    </div>
+
+    <script>
+        function caesarShift(str, shift) {
+            return str.split('').map(char => {
+                let code = char.charCodeAt(0);
+
+                if (code >= 65 && code <= 90) {
+                    return String.fromCharCode(((code - 65 + shift) % 26) + 65);
+                }
+
+                else if (code >= 97 && code <= 122) {
+                    return String.fromCharCode(((code - 97 + shift) % 26) + 97);
+                }
+                
+                else {
+                    return char;
+                }
+            }).join('');
+        }
+
+        function encrypt() {
+            const text = document.getElementById("plainText").value;
+            const shift = parseInt(document.getElementById("shiftEncrypt").value);
+            document.getElementById("cipherText").textContent = caesarShift(text, shift);
+        }
+
+        function decrypt() {
+            const text = document.getElementById("cipherInput").value;
+            const shift = parseInt(document.getElementById("shiftDecrypt").value);
+            document.getElementById("plainOutput").textContent = caesarShift(text, 26 - shift);
+        }
+
+        function showEncrypt() {
+            document.getElementById("encryptSection").classList.remove("hidden");
+            document.getElementById("decryptSection").classList.add("hidden");
+        }
+        function showDecrypt() {
+            document.getElementById("decryptSection").classList.remove("hidden");
+            document.getElementById("encryptSection").classList.add("hidden");
+        }
+    </script>
+</body>
+</html>

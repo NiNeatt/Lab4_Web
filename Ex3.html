@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Date and Greeting Example</title>
+  <style>
+    body { 
+        font-family: Arial; 
+        text-align: center; 
+        margin-top: 50px; 
+    }
+    h1 { 
+        font-size: 2.5em; 
+    }
+    p { 
+        font-size: 1.2em; color: #333; 
+    }
+  </style>
+</head>
+<body>
+    <h1 id="greeting"></h1>
+    <p id="details"></p>
+
+    <script>
+        function getGreeting() {
+            const now = new Date();
+            const hour = now.getHours();
+            if (hour >= 5 && hour < 12) return "Good Morning";
+            else if (hour >= 12 && hour < 18) return "Good Afternoon";
+            else return "Good Evening";
+        }
+
+        function showDateDetails() {
+            const now = new Date();
+            const days = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+            return `Today is ${days[now.getDay()]}, ${now.getDate()}/${now.getMonth()+1}/${now.getFullYear()}.
+            Current time: ${now.getHours()}:${now.getMinutes()}:${now.getSeconds()}.${now.getMilliseconds()}`;
+        }
+
+        function updatePage() {
+            document.getElementById("greeting").innerText = getGreeting();
+            document.getElementById("details").innerText = showDateDetails();
+        }
+
+        updatePage();
+        setInterval(updatePage, 1000);
+    </script>
+</body>
+</html>

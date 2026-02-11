@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<body>
+  <h2>Leap Year Checker</h2>
+  <button onclick="checkLeapYear()">Check Leap Year</button>
+
+  <script>
+    function checkLeapYear() {
+      let year = prompt("Enter a year:");
+      year = parseInt(year);
+
+      if ((year % 4 === 0 && year % 100 !== 0) || (year % 400 === 0)) {
+        alert(year + " is a leap year.");
+      } else {
+        alert(year + " is not a leap year.");
+      }
+    }
+  </script>
+</body>
+</html>
